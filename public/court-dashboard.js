@@ -1,4 +1,4 @@
-﻿let contract;
+let contract;
 let userAccount;
 let userData;
 
