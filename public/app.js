@@ -1,4 +1,4 @@
-﻿let web3;
+let web3;
 let contract;
 let userAccount;
 

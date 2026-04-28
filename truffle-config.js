@@ -21,9 +21,9 @@ module.exports = {
     development: {
       host: process.env.DEV_HOST || "127.0.0.1",
       port: 7545, // Default Ganache port
-      network_id: "1337",
-      gas: 6721975, // Optional: You can configure gas limit as well
-      gasPrice: 20000000000 // Optional: Set a default gas price
+      network_id: "*", // Match any network (Ganache default networkId varies by version)
+      gas: 6721975,
+      gasPrice: 20000000000
     },
     sepolia: {
       provider: createSepoliaProvider,
@@ -43,7 +43,7 @@ module.exports = {
   // Configure your compilers
   compilers: {
     solc: {
-      version: "0.8.13",    // Fetch exact version from solc-bin
+      version: "node_modules/solc",  // use locally installed solc@0.8.13
       settings: {
         optimizer: {
           enabled: true,

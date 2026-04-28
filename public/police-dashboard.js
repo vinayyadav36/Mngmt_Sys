@@ -1,4 +1,4 @@
-﻿let contract;
+let contract;
 let userAccount;
 let userData;
 
@@ -158,18 +158,25 @@ async function viewEvidenceDetails(evidenceId) {
     document.body.appendChild(modal);
 
     const closeBtn = modal.querySelector(".close");
-    closeBtn.addEventListener("click", () => document.body.removeChild(modal));
+    const closeModal = () => {
+      if (document.body.contains(modal)) {
+        document.body.removeChild(modal);
+      }
+      window.removeEventListener("click", handleOutsideClick);
+    };
+    closeBtn.addEventListener("click", closeModal);
 
     const downloadBtn = modal.querySelector("#download-btn");
     downloadBtn.addEventListener("click", () => downloadEvidence(evidence.ipfsHash));
 
     await loadEvidencePreview(evidence.ipfsHash, evidence.evidenceType, modal.querySelector("#evidence-preview-modal"));
 
-    window.addEventListener("click", (event) => {
+    function handleOutsideClick(event) {
       if (event.target === modal) {
-        document.body.removeChild(modal);
+        closeModal();
       }
-    });
+    }
+    window.addEventListener("click", handleOutsideClick);
   } catch (error) {
     console.error("View details error:", error);
     showMessage(uploadStatus, "Error loading evidence details", "error");
